@@ -18,7 +18,7 @@ callbackUrl   | String or Expression   | URL where the callback message should b
 functionIdentifier   | String or Expression   |name of the smart contract function to invoke | orderPart
 url   | String or Expression  |SCL of the smart contract to use | http://172.16.238.1:8081/blockchain-access-layer/webapi?blockchain=ethereum&blockchain-id=eth-0&address=0x75f17644EAEb3cC6511764a6F1138F14B3e33D0f
 
-The Connector will send a JSON RPC 2.0 Request to the scip gateway, with randomly generated ID and "<ProcessID>_<ActivityID>" as correlation Identifier.
+The Connector will send a JSON RPC 2.0 Request to the scip gateway, with randomly generated ID and "\<ProcessID\>_\<ActivityID\>" as correlation Identifier.
 
 Usage:
 
