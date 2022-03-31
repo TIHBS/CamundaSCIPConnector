@@ -36,7 +36,7 @@ public class ScipCaller {
         HttpPost request = new HttpPost(this.getUrl());
 
         request.addHeader("content-type", "application/json");
-        request.addHeader("Accept", "application/json");//TODO: utf8
+        request.addHeader("Accept", "application/json");
 
         StringEntity payload = null;
         try {

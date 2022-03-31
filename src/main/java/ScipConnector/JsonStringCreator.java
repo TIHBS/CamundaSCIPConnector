@@ -25,7 +25,7 @@ public class JsonStringCreator {
 
 
         JsonRequest.put("jsonrpc", 2.0);
-        JsonRequest.put("method", "Invoke"); //TODO: do we need other methods?
+        JsonRequest.put("method", "Invoke");
         JsonRequest.put("id", idCreator.newID());
 
         params.put("functionIdentifier",requestParameters.get("functionIdentifier"));
