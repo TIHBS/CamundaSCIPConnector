@@ -1,9 +1,9 @@
-package ScipConnector;
+package scip.connector;
 
 import java.util.UUID;
 
-public class IDCreator {
-    public String newID(){
+public class IDProvider {
+    public static String newID(){
         UUID uuid = UUID.randomUUID();
         return uuid.toString();
     }

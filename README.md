@@ -24,6 +24,6 @@ Usage:
 
 - Build the project and put the jar file to a location where camunda platform can find it (This depends on the Camunda distribution. For Camunda Platform Run this is the userlibs folder.(https://docs.camunda.org/manual/7.16/user-guide/camunda-bpm-run/#starting-with-camunda-platform-run). For the camunda docker it is the "/camunda/lib/" folder. See the camunda documentation for details.)
 
-- The java class to use in the Task is: ScipConnector.ScipDelegate
+- The java class to use in the Task is: scip.connector.task.ScipSendTask
 
 See https://github.com/dabberpk/CaseStudy for an example where this delegate is used.
