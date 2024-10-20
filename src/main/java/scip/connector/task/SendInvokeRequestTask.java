@@ -18,7 +18,7 @@ public class SendInvokeRequestTask extends ScipSendTask {
         result.setSignature(ScipSendTask.parseMemberSignature(delegateExecution.getVariable(PropertyNames.SIGNATURE.getName()).toString()));
         result.setOutputParams(ScipSendTask.parseParameters(delegateExecution.getVariable(PropertyNames.OUTPUTS.getName()).toString()));
         result.setInputArguments(ScipSendTask.parseArguments(delegateExecution.getVariable(PropertyNames.INPUT_ARGS.getName()).toString()));
-        result.setCallbackUrl("http://localhost:9090/submit-transaction/dummy");
+        result.setCallbackUrl("http://localhost:8080/engine-rest/message");
         result.setTimeout(100000L);
         log.info("Generated InvokeRequest: {}", result);
 

@@ -60,6 +60,7 @@ public abstract class ScipSendTask implements JavaDelegate {
     final protected JsonRpcRequest generateJsonRpcRequest(DelegateExecution delegateExecution) {
         final String method = getMethodName();
         final ScipRequest request = generateRequestMessage(delegateExecution);
+        request.setCorrelationId(delegateExecution.getProcessInstanceId() + "_" + request.getCorrelationId());
         final String id = IDProvider.newID();
 
         return JsonRpcRequest.builder().method(method).params(request).id(id).build();
