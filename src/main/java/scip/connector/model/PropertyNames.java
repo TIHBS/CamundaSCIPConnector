@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public enum PropertyNames {
     // Property names of the BlockME constructs
-    SMART_CONTRACT("sc"),
+    SCL("scl"),
     SIGNATURE("signature"),
     OUTPUTS("outputs"),
     INPUT_ARGS("inArgs"),
@@ -13,7 +13,6 @@ public enum PropertyNames {
     IS_STATEFUL("isStateful"),
     CORRELATION_ID("corrId"),
     DEGREE_OF_CONFIDENCE("doc"),
-    TO("to"),
     VALUE("value"),
     TIMESTAMP("timestamp"),
     FROM("from"),

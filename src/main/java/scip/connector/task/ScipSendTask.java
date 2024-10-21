@@ -9,12 +9,12 @@ import org.camunda.bpm.engine.delegate.JavaDelegate;
 import scip.connector.IDProvider;
 import scip.connector.ScipInvoker;
 import scip.connector.model.Argument;
+import scip.connector.model.PropertyNames;
 import scip.connector.model.jspnrpc.JsonRpcRequest;
 import scip.connector.model.jspnrpc.JsonRpcResponse;
 import scip.connector.model.request.MemberSignature;
 import scip.connector.model.request.Parameter;
 import scip.connector.model.request.ScipRequest;
-import scip.connector.model.response.ScipResponse;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -45,7 +45,7 @@ public abstract class ScipSendTask implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
-        final String scl = generateScl(delegateExecution);
+        final String scl = delegateExecution.getVariable(PropertyNames.SCL.getName()).toString();
         final JsonRpcRequest request = generateJsonRpcRequest(delegateExecution);
         final ScipInvoker invoker = new ScipInvoker(scl);
         final JsonRpcResponse response = invoker.sendRequest(request);
@@ -57,28 +57,28 @@ public abstract class ScipSendTask implements JavaDelegate {
         }
     }
 
+    final protected void addGeneralRequestMessageEntries(ScipRequest scipRequest, DelegateExecution delegateExecution) {
+        scipRequest.setCorrelationId(delegateExecution.getProcessInstanceId() + "_" + delegateExecution.getVariable(PropertyNames.CORRELATION_ID.getName()).toString());
+        scipRequest.setDegreeOfConfidence(Long.parseLong(delegateExecution.getVariable(PropertyNames.DEGREE_OF_CONFIDENCE.getName()).toString()));
+        scipRequest.setCallbackUrl("http://localhost:8080/engine-rest/message");
+        scipRequest.setTimeout(100000L);
+    }
+
     final protected JsonRpcRequest generateJsonRpcRequest(DelegateExecution delegateExecution) {
         final String method = getMethodName();
         final ScipRequest request = generateRequestMessage(delegateExecution);
-        request.setCorrelationId(delegateExecution.getProcessInstanceId() + "_" + request.getCorrelationId());
+        this.addGeneralRequestMessageEntries(request, delegateExecution);
+        log.info("Generated {}Request: {}", getMethodName(), request);
         final String id = IDProvider.newID();
 
         return JsonRpcRequest.builder().method(method).params(request).id(id).build();
     }
 
-    final protected String generateScl(DelegateExecution delegateExecution) {
-        final String gateway = delegateExecution.getVariable("gatewayUrl").toString();
-        final String query = getSclQueryParams(delegateExecution);
-        final String scl = String.format("%s?%s", gateway, query);
-        log.info("scl='{}'", scl);
-        return scl;
+    protected void handleResponse(String response, DelegateExecution delegateExecution) {
+        log.info("Send{}RequestTask received synchronous response: {}", getMethodName(), response);
     }
 
     protected abstract ScipRequest generateRequestMessage(DelegateExecution delegateExecution);
 
-    protected abstract String getSclQueryParams(DelegateExecution delegateExecution);
-
     protected abstract String getMethodName();
-
-    protected abstract void handleResponse(String response, DelegateExecution delegateExecution);
 }

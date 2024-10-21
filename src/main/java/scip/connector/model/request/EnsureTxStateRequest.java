@@ -4,6 +4,6 @@ import lombok.*;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class EnsureTxState extends ScipRequest {
+public class EnsureTxStateRequest extends ScipRequest {
     private String ref;
 }
