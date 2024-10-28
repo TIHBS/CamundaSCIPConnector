@@ -11,6 +11,6 @@ public class EchoTask implements JavaDelegate {
     public void execute(DelegateExecution delegateExecution) throws Exception {
         final String varName = delegateExecution.getCurrentActivityId() + "_message";
         final String message = (String) delegateExecution.getVariable(varName);
-        log.info("****** {}: {} ******", delegateExecution.getCurrentActivityId(), message);
+        log.info("\n\n****** {}: {} ******\n", delegateExecution.getCurrentActivityId(), message);
     }
 }

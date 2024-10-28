@@ -22,4 +22,9 @@ public class SendReceiveTxRequestTask extends ScipSendTask{
         return "ReceiveTx";
     }
 
+    @Override
+    protected String getBlockmeTaskName() {
+        return "ReceiveTx Task";
+    }
+
 }

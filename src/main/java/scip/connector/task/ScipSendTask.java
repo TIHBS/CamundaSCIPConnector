@@ -48,11 +48,13 @@ public abstract class ScipSendTask implements JavaDelegate {
         final String scl = delegateExecution.getVariable(PropertyNames.SCL.getName()).toString();
         final JsonRpcRequest request = generateJsonRpcRequest(delegateExecution);
         final ScipInvoker invoker = new ScipInvoker(scl);
+        log.info("\n\n****** {} *******:\nSending the following request to {}: {}\n", getBlockmeTaskName(), scl, request);
         final JsonRpcResponse response = invoker.sendRequest(request);
 
         if (response.getError() == null) {
-            this.handleResponse(response.getResult(), delegateExecution);
+            this.handleResponse(response.getResult());
         } else {
+            log.info("\n\n****** {} ******:\nReceived synchronous SCIP error: {}\n", getBlockmeTaskName(), response);
             throw new BpmnError(String.valueOf(response.getError().getCode()), response.getError().getMessage());
         }
     }
@@ -68,17 +70,19 @@ public abstract class ScipSendTask implements JavaDelegate {
         final String method = getMethodName();
         final ScipRequest request = generateRequestMessage(delegateExecution);
         this.addGeneralRequestMessageEntries(request, delegateExecution);
-        log.info("Generated {}Request: {}", getMethodName(), request);
+        log.debug("Generated {}Request: {}", getMethodName(), request);
         final String id = IDProvider.newID();
 
         return JsonRpcRequest.builder().method(method).params(request).id(id).build();
     }
 
-    protected void handleResponse(String response, DelegateExecution delegateExecution) {
-        log.info("Send{}RequestTask received synchronous response: {}", getMethodName(), response);
+    protected void handleResponse(String response) {
+        log.info("\n\n****** {} ******:\nReceived synchronous SCIP response: {}\n", getBlockmeTaskName(), response);
     }
 
     protected abstract ScipRequest generateRequestMessage(DelegateExecution delegateExecution);
 
     protected abstract String getMethodName();
+
+    protected abstract String getBlockmeTaskName();
 }

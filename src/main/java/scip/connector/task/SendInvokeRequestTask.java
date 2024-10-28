@@ -25,4 +25,9 @@ public class SendInvokeRequestTask extends ScipSendTask {
     protected String getMethodName() {
         return "Invoke";
     }
+
+    @Override
+    protected String getBlockmeTaskName() {
+        return "InvokeSCFunction Task";
+    }
 }

@@ -9,7 +9,9 @@ public class SendEnsureStateRequestTask extends ScipSendTask {
     @Override
     protected ScipRequest generateRequestMessage(DelegateExecution delegateExecution) {
         final EnsureTxStateRequest result = new EnsureTxStateRequest();
-        result.setRef(delegateExecution.getVariable(PropertyNames.REF.getName()).toString());
+        result.setRef(
+                delegateExecution.getProcessInstanceId() + "_" +
+                        delegateExecution.getVariable(PropertyNames.REF.getName()).toString());
 
         return result;
     }
@@ -17,5 +19,10 @@ public class SendEnsureStateRequestTask extends ScipSendTask {
     @Override
     protected String getMethodName() {
         return "EnsureState";
+    }
+
+    @Override
+    protected String getBlockmeTaskName() {
+        return "EnsureTxState Task";
     }
 }

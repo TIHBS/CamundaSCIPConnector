@@ -11,7 +11,6 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import scip.connector.model.jspnrpc.JsonRpcRequest;
 import scip.connector.model.jspnrpc.JsonRpcResponse;
-import scip.connector.model.response.ScipResponse;
 
 import java.io.IOException;
 
@@ -35,7 +34,7 @@ public class ScipInvoker {
              CloseableHttpResponse response = client
                      .execute(post)) {
             String jsonResponse = EntityUtils.toString(response.getEntity());
-            log.info("Received synchronous SCIP response: {}", jsonResponse);
+            log.debug("Received synchronous SCIP response: {}", jsonResponse);
 
             return (new Gson()).fromJson(jsonResponse, JsonRpcResponse.class);
         }

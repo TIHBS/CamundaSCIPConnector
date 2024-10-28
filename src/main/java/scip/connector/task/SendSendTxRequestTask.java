@@ -20,7 +20,12 @@ public class SendSendTxRequestTask extends ScipSendTask {
 
     @Override
     protected String getMethodName() {
-        return "Invoke";
+        return "SendTx";
+    }
+
+    @Override
+    protected String getBlockmeTaskName() {
+        return "SendTx Task";
     }
 
 }
