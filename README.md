@@ -22,7 +22,7 @@ from   | String or Expression | the blockchain-specific address from which we ex
 corrId | String or Expression | the correlation identifier to identify the task | abcd
 ref    | String or Expression | the correlation identifier of the task whose transaction is to be monitored for its state | abcd
 
-The Connector will send a JSON RPC 2.0 Request to the scip gateway, with randomly generated UUID and `"${processInstanceId}_{corrId}"` as correlation identifier.
+The Connector will send a JSON RPC 2.0 Request to the scip gateway, with randomly generated UUID and `"${processBusinessKey}_{corrId}"` as correlation identifier.
 
 ## Usage:
 

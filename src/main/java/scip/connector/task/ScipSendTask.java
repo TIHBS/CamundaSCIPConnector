@@ -60,7 +60,7 @@ public abstract class ScipSendTask implements JavaDelegate {
     }
 
     final protected void addGeneralRequestMessageEntries(ScipRequest scipRequest, DelegateExecution delegateExecution) {
-        scipRequest.setCorrelationId(delegateExecution.getProcessInstanceId() + "_" + delegateExecution.getVariable(PropertyNames.CORRELATION_ID.getName()).toString());
+        scipRequest.setCorrelationId(delegateExecution.getProcessBusinessKey() + "_" + delegateExecution.getVariable(PropertyNames.CORRELATION_ID.getName()).toString());
         scipRequest.setDegreeOfConfidence(Long.parseLong(delegateExecution.getVariable(PropertyNames.DEGREE_OF_CONFIDENCE.getName()).toString()));
         scipRequest.setCallbackUrl("http://localhost:8080/engine-rest/message");
         scipRequest.setTimeout(100000L);

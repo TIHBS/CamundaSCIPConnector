@@ -10,7 +10,7 @@ public class SendEnsureStateRequestTask extends ScipSendTask {
     protected ScipRequest generateRequestMessage(DelegateExecution delegateExecution) {
         final EnsureTxStateRequest result = new EnsureTxStateRequest();
         result.setRef(
-                delegateExecution.getProcessInstanceId() + "_" +
+                delegateExecution.getProcessBusinessKey() + "_" +
                         delegateExecution.getVariable(PropertyNames.REF.getName()).toString());
 
         return result;
